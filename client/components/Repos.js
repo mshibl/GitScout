@@ -5,9 +5,9 @@ export default class Repos extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.displayRepos = this.displayRepos.bind(this);
 		this.filterRepos = (event) => this._filterRepos(event);
 		this.changePage = (event) => this._changePage(event);
-		this.displayRepos = this.displayRepos.bind(this);
 		this.nextPage = () => this._nextPage();
 		this.prevPage = () => this._prevPage();
 	}
@@ -21,19 +21,6 @@ export default class Repos extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({ displayedRepos: nextProps.repos })	      
-	}
-
-	showMore(){
-		let numOfRepos = this.state.displayedRepos.length
-		let newDisplayCount = this.state.displayCount += 8
-		this.setState({displayCount: Math.min(newDisplayCount, numOfRepos)})
-	}
-
-	showLess(){
-		let numOfRepos = this.state.displayedRepos.length
-		let currentDisplayCount = this.state.displayCount
-		let newDisplayCount = currentDisplayCount % 8 ? currentDisplayCount -= numOfRepos % 8 : currentDisplayCount -= 8
-		this.setState({displayCount: Math.max(newDisplayCount, 8)})
 	}
 
 	_filterRepos(){
@@ -72,7 +59,6 @@ export default class Repos extends React.Component {
 		let numOfPages = Math.ceil(displayedRepos.length / 8)
 		let lastPage = displayCount+8 >= displayedRepos.length
 		let firstPage = displayCount < 8
-		console.log(lastPage)
 		return(
 			<div>
 		     	<input onChange={this.filterRepos} ref="search" type="text" className="repo-search form-control" placeholder="Search for..." />
@@ -93,16 +79,13 @@ export default class Repos extends React.Component {
 	     	</div>
 		)
 	}
-			     	// {this.state.displayCount < displayedRepos.length ? <a onClick={() => this.showMore()}><i className="fa fa-chevron-right fa-rotate-90"></i></a> : null}
-			     	// {displayedRepos.length > 8 ? <a onClick={() => this.showLess()}><i className="fa fa-chevron-right fa-rotate-270"></i></a> : null}
 
 	render(){
-		const {displayedRepos} = this.state
 		return(
 		    <div className="repos col-md-9">
 	     		<h3 className="repos-title"> Repositories </h3>
 	     		{this.props.loaded ? 
-	     			this.displayRepos(displayedRepos) 
+	     			this.displayRepos() 
 	     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>
 	     		}
 		    </div>

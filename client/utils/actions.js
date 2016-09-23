@@ -7,6 +7,7 @@ const verfiyUsername = action((username, mainUser = false) => {
 		.then(res => res.json())
 		.then(data => {
 			if(data.message == "Not Found"){
+				// TODO: handle error / notify user of wrong input
 				console.log("error")
 			} else {
 				if(mainUser){
@@ -26,11 +27,13 @@ const analyzeRepos = action(()=>{
 	const {repos} = store.mainUser
 	let languagesMap = map()
 	let starsCount = 0, forksCount = 0, watchersCount = 0, openIssuesCount = 0
+
 	repos.slice().forEach((repo, index) => {
 		starsCount += repo.stargazers_count;
 		forksCount += repo.forks_count;
 		watchersCount += repo.watchers_count;
 		openIssuesCount += repo.open_issues_count;
+
 		fetch('https://api.github.com/repos/'+login+'/'+repo.name+'/languages')
 			.then(res => res.json())
 			.then(languages => {
@@ -41,6 +44,7 @@ const analyzeRepos = action(()=>{
 			})
 			.then(() => {if(index == repos.length-1){store.mainUser.languages = languagesMap}} )
 	})
+	
 	store.mainUser.counts = {starsCount: starsCount, forksCount: forksCount, watchersCount: watchersCount, openIssuesCount: openIssuesCount, loaded: true}
 })
 

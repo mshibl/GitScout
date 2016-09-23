@@ -9,10 +9,6 @@ class AppStore {
 		languages: map(),
 		counts: {}
 	}
-
-	@computed get dataIsAvailable(){
-		return this.users.length !== 0
-	}
 }
 
 const singleton = new AppStore();

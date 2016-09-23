@@ -2,7 +2,7 @@ import React from 'react';
 import actions from '../utils/actions';
 import { withRouter } from 'react-router'
 
-export default withRouter(class Input extends React.Component {
+export default withRouter(class UserSearch extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -11,7 +11,7 @@ export default withRouter(class Input extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		const {value} = this.refs.input
-		if(nextProps.verified) this.props.router.push('/user/'+value)
+		if(nextProps.verified) this.props.router.push('/'+value)
 	}
 
 	_verifyUser(e){

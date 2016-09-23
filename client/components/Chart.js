@@ -1,6 +1,6 @@
 import React from 'react';
 import randomColor from 'randomcolor';
-import {PieChart, Pie, Tooltip, Cell, Legend} from 'recharts';
+import {PieChart, Pie, Tooltip, Cell} from 'recharts';
 
 
 export default class Chart extends React.Component {
@@ -18,7 +18,7 @@ export default class Chart extends React.Component {
 
 	displayChart(){
 		const {chartData} = this.state
-		let options = {defaultFontFamily: 2, animateScale: true, defaultFontFamily: 'Open Sans'}
+		
 		const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value }) => {
 			const radius = innerRadius + (outerRadius - innerRadius) * 1.4;
 			const RADIAN = Math.PI / 180; 
@@ -31,6 +31,7 @@ export default class Chart extends React.Component {
 				</text>
 			);
 		};
+
 		return(
 		    <div className="">
 				<PieChart width={400} height={250}>

@@ -1,11 +1,10 @@
 import React from 'react';
-import {observer} from "mobx-react"
 import store from '../utils/store';
 
-export default observer(class UserCard extends React.Component {
+export default class UserCard extends React.Component {
 
 	displayUserCard(){
-		const {name, avatar_url, created_at, followers, following, hireable, location, public_repos, url} = this.props.userInfo
+		const {name, avatar_url, followers, following, hireable, location, public_repos, url} = this.props.userInfo
 		return(
 		        <div className="card">
 	                <div className="cover">
@@ -16,12 +15,12 @@ export default observer(class UserCard extends React.Component {
 	                </div>
 	                <div className="content">
 	                    <div className="main">
-	                        <h3 className="name">{name}</h3>
+	                        <h3 className="name"><a href={url}> {name} </a></h3>
 	                        <p className="location">{location}</p>
-	                        <p className=""> <i className="fa fa-users" aria-hidden="true"></i> Followers: {followers}</p>
-	                        <p className=""> <i className="fa fa-user-plus" aria-hidden="true"></i> Following: {following}</p>
-	                        <p className=""> <i className="fa fa-briefcase" aria-hidden="true"></i> Hireable: {hireable ? "Yes" : "No"}</p>
-	                        <p className=""> <i className="fa fa-github-square" aria-hidden="true"></i> Public Repositories: {public_repos}</p>
+	                        <p className="user-meta"> <i className="fa fa-users" aria-hidden="true"></i> Followers: {followers}</p>
+	                        <p className="user-meta"> <i className="fa fa-user-plus" aria-hidden="true"></i> Following: {following}</p>
+	                        <p className="user-meta"> <i className="fa fa-briefcase" aria-hidden="true"></i> Hireable: {hireable ? "Yes" : "No"}</p>
+	                        <p className="user-meta"> <i className="fa fa-github-square" aria-hidden="true"></i> Public Repositories: {public_repos}</p>
 	                    </div>
 	                </div>
 		        </div>
@@ -39,4 +38,4 @@ export default observer(class UserCard extends React.Component {
 			</div>
 		)
 	}
-})
+}

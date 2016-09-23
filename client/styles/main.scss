@@ -19,13 +19,18 @@ body {
 }
 
 .input-list{
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 100vh;
 
 	ul{ 
 		padding: 0; 
@@ -57,7 +62,8 @@ body {
 
 	.main-guide{
 		font-family: Montserrat;
-		font-size: 25px;
+	    font-size: 2em;
+    	text-align: center;
 	}
 
 	::-webkit-input-placeholder { color: #fbe7e7; opacity: 0.5; }
@@ -77,7 +83,6 @@ body {
 .searchbox{
 	background-color: transparent;
 	color: white;
-	width: 20vw;
 	border: none;
 	border-bottom: 2px solid white;
 	font-size: 24px;
@@ -91,7 +96,12 @@ body {
 }
 
 .card-container {
-	height: 100vh;
+    @media screen 
+	  and (min-device-width: 1200px) 
+	  and (max-device-width: 1600px) 
+	  and (-webkit-min-device-pixel-ratio: 1) { 
+		height: 100vh;
+	}
 	border-radius: 4px;
 }
 
@@ -128,6 +138,10 @@ body {
 	    color: #999999;
 	    text-align: center;
 	    margin-bottom: 20px;
+	}
+
+	.user-meta{
+		font-size: 1em;
 	}
 
 	.content{

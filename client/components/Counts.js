@@ -34,7 +34,6 @@ export default class Counts extends React.Component {
 	}
 
 	render(){
-		console.log(this.props)
 		return(
 		    <div className="counts col-md-7">
 	     		{this.props.loaded ? 
