@@ -1,16 +1,13 @@
 import {observable, computed, asStructure, map} from 'mobx';
 
 class AppStore {
-	// @observable username = ""
-	// @observable userInfo = {}
-	// @observable userRepos = []
-	// @observable mainUser = ""
-
 	@observable users = map()
 	@observable mainUser = {
 		verified: "empty",
 		userInfo: {},
-		repos: []
+		repos: [],
+		languages: map(),
+		counts: {}
 	}
 
 	@computed get dataIsAvailable(){

@@ -13,6 +13,11 @@ body {
 	margin-bottom: 20px;
 }
 
+.loading{
+	text-align: center;
+	opacity: 0.6;
+}
+
 .input-list{
 	position: absolute;
 	display: flex;
@@ -86,7 +91,7 @@ body {
 }
 
 .card-container {
-	height: 420px;
+	height: 100vh;
 	border-radius: 4px;
 }
 
@@ -95,7 +100,7 @@ body {
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
     color: #444444;
-	
+	margin-bottom: 20px;
 }
 
 .card {
@@ -217,5 +222,18 @@ body {
 	}
 }
 
+.counts{
+	h4{
+		margin-left: 50px;
+	}
+	.fa{
+		padding-right: 5px;
+	}
+	.count-box{
+		height: 60px;
+	}
+	.count{
 
+	}
+}
 

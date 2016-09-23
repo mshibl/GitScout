@@ -6,6 +6,7 @@ export default class Repos extends React.Component {
 		super(props);
 
 		this.filterRepos = (event) => this._filterRepos(event);
+		this.displayRepos = this.displayRepos.bind(this);
 	}
 
 	componentWillMount() {
@@ -46,11 +47,9 @@ export default class Repos extends React.Component {
 		})
 	}
 
-	render(){
-		const {displayedRepos} = this.state
+	displayRepos(displayedRepos){
 		return(
-		     <div className="repos col-md-9">
-		     	<h3 className="repos-title"> Repositories </h3>
+			<div>
 		     	<input onChange={this.filterRepos} ref="search" type="text" className="repo-search form-control" placeholder="Search for..." />
 			    <div className="row repos-displayed">
 			     	{displayedRepos.slice(0,this.state.displayCount).map((repo)=>{
@@ -59,9 +58,22 @@ export default class Repos extends React.Component {
 			    </div>
 		     	<hr />
 		     	<div className="display-control-button"> 
-		     	{this.state.displayCount < displayedRepos.length ? <a onClick={() => this.showMore()}><i className="fa fa-plus" aria-hidden="true"></i></a> : null}
-		     	{displayedRepos.length > 8 ? <a onClick={() => this.showLess()}><i className="fa fa-minus" aria-hidden="true"></i></a> : null}
+		     	{this.state.displayCount < displayedRepos.length ? <a onClick={() => this.showMore()}><i className="fa fa-chevron-right fa-rotate-90" aria-hidden="true"></i></a> : null}
+		     	{displayedRepos.length > 8 ? <a onClick={() => this.showLess()}><i className="fa fa-chevron-right fa-rotate-270" aria-hidden="true"></i></a> : null}
 		     	</div>
+	     	</div>
+		)
+	}
+
+	render(){
+		const {displayedRepos} = this.state
+		return(
+		    <div className="repos col-md-9">
+	     		<h3 className="repos-title"> Repositories </h3>
+	     		{this.props.loaded ? 
+	     			this.displayRepos(displayedRepos) 
+	     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>
+	     		}
 		    </div>
 		)
 	}

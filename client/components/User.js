@@ -5,6 +5,7 @@ import actions from '../utils/actions';
 import UserCard from './UserCard'
 import Input from './input'
 import Repos from './Repos'
+import Stats from './Stats'
 
 export default observer(class User extends React.Component {
 	componentWillMount() {
@@ -16,16 +17,15 @@ export default observer(class User extends React.Component {
 
 	render(){
 		const { userInfo, repos } = store.mainUser
-		// console.log(store.mainUser.repos)
-		// console.log(store.mainUser.repos.length)
 		return(
 			<div className="user-profile">
 				{/* <Input className="top-bar" /> */}
 				
 					<div className="container">
 						<div className="row">
-							{store.mainUser.verified == "verified" ? <UserCard userInfo={store.mainUser.userInfo} /> : <h1> Loading </h1> }
-							{store.mainUser.repos.length ? <Repos repos={store.mainUser.repos}/> : <h1> Loading </h1>} 
+							<UserCard loaded={store.mainUser.verified == "verified"} userInfo={store.mainUser.userInfo} />
+							<Stats counts={store.mainUser.counts} languages={store.mainUser.languages.entries()}/>
+							<Repos loaded={store.mainUser.repos.length > 0 } repos={store.mainUser.repos} />
 						</div>
 					</div>
 			</div>
