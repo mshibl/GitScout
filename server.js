@@ -3,6 +3,7 @@ const express = require('express');
 const webpack = require('webpack');
 const app = express();
 const bodyParser = require('body-parser');
+const fetch = require('isomorphic-fetch')
 
 const isProduction = process.env.NODE_ENV === 'production';
 const config = isProduction ? require('./webpack.config.prod') : require('./webpack.config.dev');
