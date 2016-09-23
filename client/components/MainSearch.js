@@ -10,7 +10,7 @@ export default observer(class MainSearch extends React.Component {
 		return(
 			<div className="input-list">
 				<p className="main-guide">Who is the Github user you wish to find?</p>
-				<Input />
+				<Input verified={store.mainUser.verified == "verified"} />
 				{store.mainUser.verified == "verified" ? 
 					<button type="button">
 						<Link className="results-button" to={'/user/'+store.mainUser.username}>Show Results</Link>

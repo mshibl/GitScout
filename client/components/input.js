@@ -1,11 +1,17 @@
 import React from 'react';
 import actions from '../utils/actions';
+import { withRouter } from 'react-router'
 
-export default class Input extends React.Component {
+export default withRouter(class Input extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.verifyUser = (event) => this._verifyUser(event);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		const {value} = this.refs.input
+		if(nextProps.verified) this.props.router.push('/user/'+value)
 	}
 
 	_verifyUser(e){
@@ -31,4 +37,4 @@ export default class Input extends React.Component {
 			</form>
 		)
 	}
-}
+})

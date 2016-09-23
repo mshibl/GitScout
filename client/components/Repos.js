@@ -6,13 +6,16 @@ export default class Repos extends React.Component {
 		super(props);
 
 		this.filterRepos = (event) => this._filterRepos(event);
+		this.changePage = (event) => this._changePage(event);
 		this.displayRepos = this.displayRepos.bind(this);
+		this.nextPage = () => this._nextPage();
+		this.prevPage = () => this._prevPage();
 	}
 
 	componentWillMount() {
 		this.setState({
 			displayedRepos: this.props.repos,
-			displayCount: 8
+			displayCount: 0
 		})
 	}
 
@@ -34,36 +37,64 @@ export default class Repos extends React.Component {
 	}
 
 	_filterRepos(){
-		// console.log('filtering repos')
-		// console.log(this.refs.search.value)
 		const {value} = this.refs.search
 		let filteredRepos = this.props.repos.filter(function(repo){
-			// console.log(value.toLocaleLowerCase() == repo.name.slice(0,value.length).toLocaleLowerCase())	
 			if (repo.name.slice(0,value.length).toLocaleLowerCase() == value.toLocaleLowerCase()){ return true }
 			return false
 		})
-		this.setState({
-			displayedRepos: filteredRepos
-		})
+		this.setState({ displayedRepos: filteredRepos })
 	}
 
-	displayRepos(displayedRepos){
+	_changePage(e){
+		if(e){e.preventDefault()}
+		let numOfPages = Math.ceil(this.state.displayedRepos.length / 8)
+		const {value} = this.refs.pageNum
+		if(value > numOfPages || value <= 0 || !Number.isInteger(parseInt(value))){
+			alert("not a valid page number")
+		} else {
+			this.setState({ displayCount: (value-1)*8 })
+		}
+	}
+
+	_nextPage(){
+		this.refs.pageNum.value  = (this.state.displayCount/8)+2
+		this.changePage()
+	}
+
+	_prevPage(){
+		this.refs.pageNum.value = (this.state.displayCount/8)
+		this.changePage()	
+	}
+
+	displayRepos(){
+		const {displayedRepos} = this.state
+		const {displayCount} = this.state
+		let numOfPages = Math.ceil(displayedRepos.length / 8)
+		let lastPage = displayCount+8 >= displayedRepos.length
+		let firstPage = displayCount < 8
+		console.log(lastPage)
 		return(
 			<div>
 		     	<input onChange={this.filterRepos} ref="search" type="text" className="repo-search form-control" placeholder="Search for..." />
-			    <div className="row repos-displayed">
-			     	{displayedRepos.slice(0,this.state.displayCount).map((repo)=>{
+			    <div className="repos-displayed">
+			     	{displayedRepos.slice(displayCount,displayCount+8).map((repo)=>{
 			     		return 	<Repo key={repo.id} repo={repo} />
 			     	})}
 			    </div>
 		     	<hr />
-		     	<div className="display-control-button"> 
-		     	{this.state.displayCount < displayedRepos.length ? <a onClick={() => this.showMore()}><i className="fa fa-chevron-right fa-rotate-90" aria-hidden="true"></i></a> : null}
-		     	{displayedRepos.length > 8 ? <a onClick={() => this.showLess()}><i className="fa fa-chevron-right fa-rotate-270" aria-hidden="true"></i></a> : null}
+		     	<div className="change-page-control"> 
+		     		{!firstPage ? <a><i className="fa fa-chevron-left" onClick={this.prevPage}></i></a> : <i className="fa fa-chevron-left idle"></i>}
+		     		<form className="page-number" onSubmit={this.changePage}>
+		     			<input ref="pageNum" type="text" className="form-control" defaultValue={1} maxLength="1"/>
+		     		</form>
+		     		<span className="of">of</span> {numOfPages}
+		     		{!lastPage ? <a><i className="fa fa-chevron-right" onClick={this.nextPage}></i></a> : <i className="fa fa-chevron-right idle"></i>}
 		     	</div>
 	     	</div>
 		)
 	}
+			     	// {this.state.displayCount < displayedRepos.length ? <a onClick={() => this.showMore()}><i className="fa fa-chevron-right fa-rotate-90"></i></a> : null}
+			     	// {displayedRepos.length > 8 ? <a onClick={() => this.showLess()}><i className="fa fa-chevron-right fa-rotate-270"></i></a> : null}
 
 	render(){
 		const {displayedRepos} = this.state
