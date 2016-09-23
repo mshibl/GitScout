@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans');
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,400');
 
 
 $main-bg-color: #3498DB;
@@ -11,6 +12,13 @@ body {
 	font-family: $font-family;
 	color: white;
 	margin-bottom: 20px;
+}
+
+#gitscout{
+	font-family: 'Raleway', sans-serif;
+	color: #f1c40f;
+	margin-bottom: 50px;
+	font-weight: lighter;
 }
 
 .loading{
@@ -63,6 +71,7 @@ body {
 	.main-guide{
 		font-family: Montserrat;
 	    font-size: 2em;
+	    padding: 5px;
     	text-align: center;
 	}
 
@@ -111,6 +120,8 @@ body {
     border-radius: 4px;
     color: #444444;
 	margin-bottom: 20px;
+	display: block;
+    overflow: auto;
 }
 
 .card {
@@ -178,14 +189,11 @@ body {
 		font-family: Montserrat, 'Open Sans', sans-serif;
 		margin-top: 0px;
 		margin-bottom: 20px;
-		margin-left: 15px;
+		margin-left: 5px;
 	}
 
 	.repo-search{
-	    width: 30%;
-	    position: absolute;
-	    top: 10px;
-	    right: 15px;
+		margin-bottom: 10px;
 	}
 
 	.repos-displayed{
@@ -253,12 +261,25 @@ body {
 			margin-left: 4px;
 			margin-right: 4px;
 		}
+
+		.page-picker{
+			display: inline;
+		}
+
+		@media only screen 
+		  and (min-device-width: 375px) 
+		  and (max-device-width: 667px) 
+		  and (-webkit-min-device-pixel-ratio: 2) {
+		  	.page-picker{
+		  		display: none;
+		  	}
+		}
 	}
 }
 
 .counts{
 	h4{
-		margin-left: 50px;
+		margin-left: 20px;
 	}
 	.fa{
 		padding-right: 5px;

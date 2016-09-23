@@ -4,7 +4,7 @@ export default class Repo extends React.Component {
 	render(){
 		const {repo} = this.props
 		return(
-		     <div className="col-md-3">
+		     <div className="col-md-3 col-xs-12">
 		     	<div className="repo col-md-12">
 			     	<div className="name"> <a href={repo.url}> {repo.name} </a> </div>
 			     	<div className="stars"> <i className="fa fa-star" aria-hidden="true" /> {repo.stargazers_count} </div>

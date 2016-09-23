@@ -61,7 +61,7 @@ export default class Repos extends React.Component {
 		let firstPage = displayCount < 8
 		return(
 			<div>
-		     	<input onChange={this.filterRepos} ref="search" type="text" className="repo-search form-control" placeholder="Search for..." />
+		     	
 			    <div className="repos-displayed">
 			     	{displayedRepos.slice(displayCount,displayCount+8).map((repo)=>{
 			     		return 	<Repo key={repo.id} repo={repo} />
@@ -70,10 +70,12 @@ export default class Repos extends React.Component {
 		     	<hr />
 		     	<div className="change-page-control"> 
 		     		{!firstPage ? <a><i className="fa fa-chevron-left" onClick={this.prevPage}></i></a> : <i className="fa fa-chevron-left idle"></i>}
-		     		<form className="page-number" onSubmit={this.changePage}>
-		     			<input ref="pageNum" type="text" className="form-control" defaultValue={1} maxLength="1"/>
-		     		</form>
-		     		<span className="of">of</span> {numOfPages}
+		     		<div className="page-picker">
+			     		<form className="page-number" onSubmit={this.changePage}>
+			     			<input ref="pageNum" type="text" className="form-control" defaultValue={1} maxLength="1"/>
+			     		</form>
+			     		<span className="of">of</span> {numOfPages}
+		     		</div>
 		     		{!lastPage ? <a><i className="fa fa-chevron-right" onClick={this.nextPage}></i></a> : <i className="fa fa-chevron-right idle"></i>}
 		     	</div>
 	     	</div>
@@ -82,12 +84,17 @@ export default class Repos extends React.Component {
 
 	render(){
 		return(
-		    <div className="repos col-md-9">
-	     		<h3 className="repos-title"> Repositories </h3>
-	     		{this.props.loaded ? 
-	     			this.displayRepos() 
-	     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>
-	     		}
+		    <div className="col-md-9">
+		    	<div className="repos">
+		    		
+			     		<div className="col-md-3"><h3 className="repos-title"> Repositories </h3></div>
+			     		<div className="col-md-4 col-md-offset-5 repo-search"><input onChange={this.filterRepos} ref="search" type="text" className="form-control" placeholder="Search for..." /></div>
+		     		
+		     		{this.props.loaded ? 
+		     			this.displayRepos() 
+		     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>
+		     		}
+	     		</div>
 		    </div>
 		)
 	}

@@ -34,8 +34,8 @@ export default class Chart extends React.Component {
 
 		return(
 		    <div className="">
-				<PieChart width={400} height={250}>
-					<Pie isAnimationActive={true} data={chartData} innerRadius={40} outerRadius={80} cx={200} cy={125} outerRadius={80} fill="#8884d8" labelLine={false} label={renderCustomizedLabel}>
+				<PieChart width={300} height={250}>
+					<Pie isAnimationActive={true} data={chartData} innerRadius={40} outerRadius={80} cx={150} cy={125} outerRadius={80} fill="#8884d8" labelLine={false} label={renderCustomizedLabel}>
 			        	{chartData.map((entry, index) => <Cell key={entry.name} fill={randomColor({luminosity: 'bright'})} />)}
 					</Pie>
 					<Tooltip/>
