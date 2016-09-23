@@ -8,19 +8,26 @@ import Repos from './Repos'
 
 export default observer(class User extends React.Component {
 	componentWillMount() {
-		actions.fetchRepos(store.mainUser.userInfo.login)
+		const {username} = this.props.params
+		if(store.mainUser.verified != "verified"){
+			actions.verfiyUsername(username, true)
+		}
 	}
 
 	render(){
+		const { userInfo, repos } = store.mainUser
+		// console.log(store.mainUser.repos)
+		// console.log(store.mainUser.repos.length)
 		return(
-			<div>
+			<div className="user-profile">
 				{/* <Input className="top-bar" /> */}
-				<div className="container">
-					<div className="row">
-						<UserCard userInfo={store.mainUser.userInfo} />
-						<Repos repos={store.mainUser.repos}/>
+				
+					<div className="container">
+						<div className="row">
+							{store.mainUser.verified == "verified" ? <UserCard userInfo={store.mainUser.userInfo} /> : <h1> Loading </h1> }
+							{store.mainUser.repos.length ? <Repos repos={store.mainUser.repos}/> : <h1> Loading </h1>} 
+						</div>
 					</div>
-				</div>
 			</div>
 		)
 	}

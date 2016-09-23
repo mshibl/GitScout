@@ -10,6 +10,7 @@ body {
 	background-color: $main-bg-color;
 	font-family: $font-family;
 	color: white;
+	margin-bottom: 20px;
 }
 
 .input-list{
@@ -80,71 +81,141 @@ body {
 }
 
 
+.user-profile{
+	margin-top: 30px;
+}
+
 .card-container {
-/*	  -webkit-perspective: 800px;
-   -moz-perspective: 800px;
-     -o-perspective: 800px;
-        perspective: 800px;*/
-    /*margin-bottom: 30px;*/
-    
-    /*width: 100%;*/
 	height: 420px;
 	border-radius: 4px;
 }
 
-.card .cover{
-    height: 105px;
-    overflow: hidden;
-    border-radius: 4px 4px 0 0;
-}
-.card .cover img{
-    width: 100%;
-}
-
-.card .user{
-    border-radius: 50%;
-    /*display: block;*/
-    height: 120px;
-    margin: -55px auto 0;
-    overflow: hidden;
-    width: 120px;
-}
-.card .user img{
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 4px solid #FFFFFF;
-    width: 100%;
-}
-
-.card .content{
-    background-color: rgba(0, 0, 0, 0);
-    box-shadow: none;
-    padding: 10px 20px 20px;
-}
-.card .content .main {
-    min-height: 160px;
-}
-
-.card .name {
-    font-size: 22px;
-    line-height: 28px;
-    margin: 10px 0 0;
-    text-align: center;
-    text-transform: capitalize;
-}
-
-.card .location{
-    color: #999999;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.card {
-	top: 0;
-	left: 0;
-	background-color: #FFF;
+@mixin container-style{
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
     color: #444444;
+	
 }
+
+.card {
+	@include container-style
+
+	.cover{
+	    height: 105px;
+	    overflow: hidden;
+	    border-radius: 4px 4px 0 0;
+
+	    img{
+		    width: 100%;
+		}
+	}
+
+    .name{
+	    font-size: 22px;
+	    line-height: 28px;
+	    margin: 10px 0 0;
+	    text-align: center;
+	    text-transform: capitalize;
+    }
+
+    .location{
+	    color: #999999;
+	    text-align: center;
+	    margin-bottom: 20px;
+	}
+
+	.content{
+	    background-color: rgba(0, 0, 0, 0);
+	    box-shadow: none;
+	    padding: 10px 20px 20px;
+		
+		.main {
+		    min-height: 160px;
+		}
+	}
+
+
+	.user{
+	    border-radius: 50%;
+	    height: 120px;
+	    margin: -55px auto 0;
+	    overflow: hidden;
+	    width: 120px;
+
+	    img{
+		    background: none repeat scroll 0 0 #FFFFFF;
+		    border: 4px solid #FFFFFF;
+		    width: 100%;
+		}
+	}
+}
+
+.repos {
+	@include container-style
+	padding: 10px;
+
+	.repos-title{
+		font-family: Montserrat, 'Open Sans', sans-serif;
+		margin-top: 0px;
+		margin-bottom: 20px;
+		margin-left: 15px;
+	}
+
+	.repo-search{
+	    width: 30%;
+	    position: absolute;
+	    top: 10px;
+	    right: 15px;
+	}
+
+	.row{
+		margin-bottom: 10px;
+	}
+
+	.repo {
+		@include container-style
+
+		position: relative;
+		height: 100px;
+		margin-bottom: 10px;
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+		
+		.name{
+			margin-top: 10px;
+			font-family: Montserrat, 'Open Sans', sans-serif;
+		}
+
+		.stars{
+			position: absolute;
+			bottom: 10px;
+			color: #34495e;
+		}
+
+		.language{
+			position: absolute;
+			bottom: 10px;
+			right: 15px;
+			color: #2ecc71;
+		}
+	}
+
+	hr{
+		width: 100%;
+	    border: 0;
+	    height: 1px;
+	    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+	}
+
+	.display-control-button{
+		text-align: center;
+		cursor: pointer;
+
+		.fa{
+			padding: 5px;
+		}
+	}
+}
+
+
 

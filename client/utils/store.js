@@ -8,7 +8,9 @@ class AppStore {
 
 	@observable users = map()
 	@observable mainUser = {
-		verified: "empty"
+		verified: "empty",
+		userInfo: {},
+		repos: []
 	}
 
 	@computed get dataIsAvailable(){
