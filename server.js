@@ -20,11 +20,11 @@ if(!isProduction){
 	
 	app.use(require('webpack-hot-middleware')(compiler));
 } else {
-	// // ping heroku app every 5 minutes to prevent from going idle
-	// setInterval(function() {
-	//     fetch("http://alldevstats.herokuapp.com");
-	//     console.log("aplication pinged to avoid idle state")
-	// }, 300000);
+	// ping heroku app every 5 minutes to prevent from going idle
+	setInterval(function() {
+	    fetch("http://gitscout.herokuapp.com");
+	    console.log("aplication pinged to avoid idle state")
+	}, 300000);
 
 	app.use(express.static(__dirname));
 }
