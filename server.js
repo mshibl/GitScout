@@ -12,9 +12,6 @@ const port = isProduction ? process.env.PORT : 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// REGISTER ROUTES -------------------------------
-// app.use('/languages', languages)
-
 if(!isProduction){
 	app.use(require('webpack-dev-middleware')(compiler, {
 	  noInfo: true,
@@ -23,6 +20,12 @@ if(!isProduction){
 	
 	app.use(require('webpack-hot-middleware')(compiler));
 } else {
+	// // ping heroku app every 5 minutes to prevent from going idle
+	// setInterval(function() {
+	//     fetch("http://alldevstats.herokuapp.com");
+	//     console.log("aplication pinged to avoid idle state")
+	// }, 300000);
+
 	app.use(express.static(__dirname));
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Doughnut} from 'react-chartjs';
 import randomColor from 'randomcolor';
 import {PieChart, Pie, Tooltip, Cell, Legend} from 'recharts';
 
