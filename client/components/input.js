@@ -2,7 +2,7 @@ import React from 'react';
 import actions from '../utils/actions';
 
 export default class Input extends React.Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
 
 		this.verifyUser = (event) => this._verifyUser(event);
