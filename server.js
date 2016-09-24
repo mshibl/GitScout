@@ -31,22 +31,21 @@ if(!isProduction){
 	app.use(express.static(__dirname));
 }
 
-app.get('/auth',function(req,res){
-	var options = { method: 'POST',
-	  url: 'https://github.com/login/oauth/access_token',
-	  qs: 
-	   { client_id: process.env.client_id,
-	     client_secret: process.env.client_secret,
-	     code: req.query.code},
-	  headers: 
-	   {'accept': 'application/json' } 
+app.get('/github_api',function(req,res){
+	var options = { method: 'GET',
+		url: 'https://api.github.com'+req.query.endpoint,
+		qs: { 
+			client_id: process.env.client_id,
+			client_secret: process.env.client_secret
+		},
+		headers:{
+			'user-agent': 'gitscout'
+		}
 	};
 
 	request(options, function (error, response, body) {
 		if (error) throw new Error(error);
-		var bodyJSON = JSON.parse(body);
-		var token = bodyJSON.access_token
-		res.redirect('/user/'+req.query.state+'?token='+token)
+		res.json(JSON.parse(body))
 	});
 })
 

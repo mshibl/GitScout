@@ -30,42 +30,6 @@ body {
 	}
 }
 
-
-.ReactModalPortal{
-	.ReactModal__Overlay{
-		display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-		display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-		display: -ms-flexbox;      /* TWEENER - IE 10 */
-		display: -webkit-flex;     /* NEW - Chrome */
-		display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-	    -webkit-flex-direction: column;
-	    flex-direction: column;
-	    -webkit-justify-content: center;
-	    justify-content: center;
-	    -webkit-align-items: center;
-		background-color: rgba(51,51,51,0.5) !important;	
-	}
-
-	.ReactModal__Content{
-	    border: 1px solid rgb(204, 204, 204);
-	    background: rgb(255, 255, 255);
-	    /*overflow: auto;*/
-	    border-radius: 4px;
-	    outline: none;
-	    padding: 20px;
-	    width: 20em; 
-	    top: 60%; 
-	    left: 50%; 
-	    bottom: initial;
-	    color: black;
-	    text-align: center;
-	    font-family: sans-serif;
-	    background-color: #f5f5f5;
-	    .sub-text{ font-weight: 100; }
-	}
-}
-
-
 .loading{
 	text-align: center;
 	opacity: 0.6;
@@ -149,8 +113,6 @@ body {
 	}
 }
 
-
-
 .user-profile{
 	margin-top: 30px;
 }
@@ -163,6 +125,7 @@ body {
 		height: 175px;
 	}
 	border-radius: 4px;
+	height: 100% !important;
 }
 
 @mixin container-style{
@@ -358,3 +321,36 @@ body {
 	}
 }
 
+
+/*.ReactModalPortal{
+	.ReactModal__Overlay{
+		display: -webkit-box;  
+		display: -moz-box;     
+		display: -ms-flexbox;  
+		display: -webkit-flex; 
+		display: flex;         
+	    -webkit-flex-direction: column;
+	    flex-direction: column;
+	    -webkit-justify-content: center;
+	    justify-content: center;
+	    -webkit-align-items: center;
+		background-color: rgba(51,51,51,0.5) !important;	
+	}
+
+	.ReactModal__Content{
+	    border: 1px solid rgb(204, 204, 204);
+	    background: rgb(255, 255, 255);
+	    border-radius: 4px;
+	    outline: none;
+	    padding: 20px;
+	    width: 20em; 
+	    top: 60%; 
+	    left: 50%; 
+	    bottom: initial;
+	    color: black;
+	    text-align: center;
+	    font-family: sans-serif;
+	    background-color: #f5f5f5;
+	    .sub-text{ font-weight: 100; }
+	}
+}*/

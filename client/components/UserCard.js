@@ -4,7 +4,6 @@ import store from '../utils/store';
 export default class UserCard extends React.Component {
 
 	displayUserCard(){
-		console.log(this.props.userInfo)
 		const {name, avatar_url, followers, following, hireable, location, public_repos, html_url, bio} = this.props.userInfo
 		return(
 	        <div className="card">
@@ -18,7 +17,7 @@ export default class UserCard extends React.Component {
 	                <div className="main">
 	                    <h3 className="name"><a href={html_url}> {name} </a></h3>
 	                    <p className="location">{location}</p>
-	                    <p>{bio}</p>
+	                    {/*<p>{bio}</p>*/}
 	                </div>
 	            </div>
 	        </div>
@@ -28,8 +27,8 @@ export default class UserCard extends React.Component {
 
 	render(){
 		return(
-			<div className="card-container col-md-3">
-			<h3 className="gitscout top-screen-logo slideDown"><a className="link" href="http://gitscout.herokuapp.com">GIT<b>SCOUT</b></a></h3>
+			<div className="card-container col-md-3 slideDown">
+			<h3 className="gitscout top-screen-logo"><a className="link" href="http://gitscout.herokuapp.com">GIT<b>SCOUT</b></a></h3>
 		 		{this.props.loaded ? 
 		 			this.displayUserCard() 
 		 			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>

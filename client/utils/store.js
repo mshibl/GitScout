@@ -7,7 +7,7 @@ class AppStore {
 
 	@observable users = map()
 	@observable mainUser = {
-		verified: "empty",
+		loaded: false,
 		userInfo: {},
 		repos: [],
 		languages: map(),

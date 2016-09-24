@@ -3,31 +3,47 @@ import fetch from 'isomorphic-fetch'
 import store from './store'
 import { browserHistory } from 'react-router'
 
-const getToken = action((username)=> {
-	window.open("https://github.com/login/oauth/authorize?client_id=18b7b3dea60d09eaacc7&state="+username,'_self');
-})
+const isProduction = window.location.hostname != "localhost"
+const apiUrl = "http://" + (isProduction? window.location.hostname : 'localhost:3000') + '/github_api'
 
-const verfiyUsername = action((username, mainUser = false) => {
-	fetch('https://api.github.com/users/'+username, {
-		headers: {
-			"Authorization": "token "+localStorage.getItem("github_token")
-		}
-	})
-		.then(res => res.json())
-		.then(data => {
-			if(data.message == "Not Found"){
+
+const loadUserProfile = action((username)=>{
+	verfiyUsername(username)
+		.then(userData => {
+			if(userData.message == "Not Found"){
 				store.errorMessage = "No Such User on Github!"
-				browserHistory.push('/')
 			} else {
-				if(mainUser){
-					store.mainUser.username = username
-					store.mainUser.userInfo = data
-					store.mainUser.verified = "verified"
-				} else {
-					store.users.set(username, {userInfo: data})
-				}
+				store.mainUser.username = username
+				store.mainUser.userInfo = userData
+				store.mainUser.loaded = true
+				browserHistory.push('/user/'+username)
 			}
 		})
+})
+
+const verfiyUsername = (username) => {
+	return(
+		fetch(apiUrl+'?endpoint=/users/'+username)
+			.then(res => res.json())
+	)
+}
+
+const fetchRepos = action((numOfPages, pageNum = 1)=>{
+	let username = store.mainUser.userInfo.login
+	if(username){
+		fetch(apiUrl+'?endpoint=/users/'+username+'/repos?page='+pageNum)
+			.then(res => res.json())
+			.then(repos => {
+				store.mainUser.repos = store.mainUser.repos.concat(repos)
+				pageNum < numOfPages ? fetchRepos(numOfPages, pageNum + 1) : analyzeRepos()
+			})
+	}
+})
+
+// automatically load user's repos once user's info is loaded
+const updateRepos = autorun(() => {
+	let numOfPages = Math.ceil(store.mainUser.userInfo.public_repos/30)
+	fetchRepos(numOfPages)
 })
 
 
@@ -43,11 +59,7 @@ const analyzeRepos = action(()=>{
 		watchersCount += repo.watchers_count;
 		openIssuesCount += repo.open_issues_count;
 
-		fetch('https://api.github.com/repos/'+login+'/'+repo.name+'/languages', {
-			headers: {
-				"Authorization": "token "+localStorage.getItem("github_token")
-			}
-		})
+		fetch(apiUrl+'?endpoint=/repos/'+login+'/'+repo.name+'/languages')
 			.then(res => res.json())
 			.then(languages => {
 					for(var language in languages){
@@ -70,32 +82,8 @@ const analyzeRepos = action(()=>{
 	}
 })
 
-
-
-const fetchRepos = action((numOfPages, pageNum = 1)=>{
-	const {login} = store.mainUser.userInfo
-	if(login){
-		fetch('https://api.github.com/users/'+login+'/repos?page='+pageNum, {
-			headers: {
-				"Authorization": "token "+localStorage.getItem("github_token")
-			}
-		})
-			.then(res => res.json())
-			.then(repos => {
-				store.mainUser.repos = store.mainUser.repos.concat(repos)
-				pageNum < numOfPages ? fetchRepos(numOfPages, pageNum + 1) : analyzeRepos()
-			})
-	}
-})
-
-
-const updateRepos = autorun(() => {
-	let numOfPages = Math.ceil(store.mainUser.userInfo.public_repos/30)
-	fetchRepos(numOfPages)
-})
-
 const actions = {
-	getToken,
+	loadUserProfile,
 	verfiyUsername,
 	fetchRepos
 }

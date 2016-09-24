@@ -18,15 +18,8 @@ export default withRouter(class Search extends React.Component {
 	_handleSubmit(e){
 		e.preventDefault();
 		
-		let githubToken = localStorage.getItem('github_token')
 		let username = this.refs.input.value
-		store.requestedUsername = username
-
-		if(githubToken &&  githubToken !== "undefined"){
-			actions.verfiyUsername(username, true)
-		} else {
-			store.requestAuth = true
-		}
+		actions.loadUserProfile(username)
 	}
 
 	render(){
