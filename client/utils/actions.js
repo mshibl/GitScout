@@ -1,22 +1,23 @@
 import { action, autorun, map } from 'mobx';
 import fetch from 'isomorphic-fetch'
 import store from './store'
+import { browserHistory } from 'react-router'
 
-const authenticate = action((value)=> {
-	window.open("https://github.com/login/oauth/authorize?client_id=18b7b3dea60d09eaacc7&state="+value,'_self');
+const getToken = action((username)=> {
+	window.open("https://github.com/login/oauth/authorize?client_id=18b7b3dea60d09eaacc7&state="+username,'_self');
 })
 
 const verfiyUsername = action((username, mainUser = false) => {
 	fetch('https://api.github.com/users/'+username, {
 		headers: {
-			"Authorization": "token "+sessionStorage.getItem("github_token")
+			"Authorization": "token "+localStorage.getItem("github_token")
 		}
 	})
 		.then(res => res.json())
 		.then(data => {
 			if(data.message == "Not Found"){
-				// TODO: handle error / notify user of wrong input
-				console.log("error")
+				store.errorMessage = "No Such User on Github!"
+				browserHistory.push('/')
 			} else {
 				if(mainUser){
 					store.mainUser.username = username
@@ -44,7 +45,7 @@ const analyzeRepos = action(()=>{
 
 		fetch('https://api.github.com/repos/'+login+'/'+repo.name+'/languages', {
 			headers: {
-				"Authorization": "token "+sessionStorage.getItem("github_token")
+				"Authorization": "token "+localStorage.getItem("github_token")
 			}
 		})
 			.then(res => res.json())
@@ -67,7 +68,7 @@ const fetchRepos = action((numOfPages, pageNum = 1)=>{
 	if(login){
 		fetch('https://api.github.com/users/'+login+'/repos?page='+pageNum, {
 			headers: {
-				"Authorization": "token "+sessionStorage.getItem("github_token")
+				"Authorization": "token "+localStorage.getItem("github_token")
 			}
 		})
 			.then(res => res.json())
@@ -85,7 +86,7 @@ const updateRepos = autorun(() => {
 })
 
 const actions = {
-	authenticate,
+	getToken,
 	verfiyUsername,
 	fetchRepos
 }

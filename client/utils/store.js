@@ -1,6 +1,10 @@
 import {observable, computed, asStructure, map} from 'mobx';
 
 class AppStore {
+	@observable requestAuth = false
+	@observable requestedUsername = ""
+	@observable errorMessage = ""
+
 	@observable users = map()
 	@observable mainUser = {
 		verified: "empty",

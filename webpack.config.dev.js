@@ -22,14 +22,14 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.scss$/,
+        loader: 'style!css!sass'
+      },
+      {
         test: /\.js?/,
         exclude: [/node_modules/, /styles/],
         loaders: ['babel'],
         include: path.join(__dirname, 'client')
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style!css!sass'
       }
     ]
   }

@@ -4,19 +4,15 @@ import {observer} from "mobx-react"
 import store from '../utils/store'
 import actions from '../utils/actions';
 
+import Stats from './StatsContainer'
 import UserCard from '../components/UserCard'
 import Repos from '../components/Repos'
-import Stats from '../components/Stats'
 
 export default observer(class UserProfile extends React.Component {
 	componentWillMount() {
-		if(this.props.location.query.token){
-			sessionStorage.setItem("github_token",this.props.location.query.token)
-		}
 		const {username} = this.props.params
-		if(store.mainUser.verified != "verified"){
-			actions.verfiyUsername(username, true)
-		}
+		if(this.props.location.query.token){ localStorage.setItem("github_token",this.props.location.query.token) }
+		if(store.mainUser.verified != "verified"){ actions.verfiyUsername(username, true) }
 	}
 
 	render(){

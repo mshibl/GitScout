@@ -1,6 +1,6 @@
 import React from 'react';
-import Chart from './Chart';
-import Counts from './Counts';
+import Chart from '../components/Chart';
+import Counts from '../components/Counts';
 
 export default class Stats extends React.Component {
 	render(){
