@@ -21,6 +21,7 @@ export default withRouter(class UserSearch extends React.Component {
 		if(sessionStorage.getItem('github_token')){
 			if (value){ actions.verfiyUsername(value, true) }
 		} else {
+			// console.log('authenticating')
 			actions.authenticate(value)
 		}
 	}
