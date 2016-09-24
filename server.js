@@ -44,8 +44,8 @@ app.get('/auth',function(req,res){
 
 	request(options, function (error, response, body) {
 		if (error) throw new Error(error);
-		let bodyJSON = JSON.parse(body);
-		let token = bodyJSON.access_token
+		var bodyJSON = JSON.parse(body);
+		var token = bodyJSON.access_token
 		res.redirect('/user/'+req.query.state+'?token='+token)
 	});
 })
