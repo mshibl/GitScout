@@ -19,9 +19,10 @@ export default withRouter(class UserSearch extends React.Component {
 		const {value} = this.refs.input
 
 		if(sessionStorage.getItem('github_token')){
+			console.log('user already authenticated')
 			if (value){ actions.verfiyUsername(value, true) }
 		} else {
-			// console.log('authenticating')
+			console.log('authenticating')
 			actions.authenticate(value)
 		}
 	}

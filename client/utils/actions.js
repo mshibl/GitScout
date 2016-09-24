@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch'
 import store from './store'
 
 const authenticate = action((value)=> {
-	console.log('authenticating')
+	console.log('opening new window')
 	window.open("https://github.com/login/oauth/authorize?client_id=18b7b3dea60d09eaacc7&state="+value,'_self');
 })
 
