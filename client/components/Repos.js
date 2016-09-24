@@ -62,7 +62,7 @@ export default class Repos extends React.Component {
 		return(
 			<div>
 		     	
-			    <div className="repos-displayed">
+			    <div className="repos-displayed col-md-12">
 			     	{displayedRepos.slice(displayCount,displayCount+8).map((repo)=>{
 			     		return 	<Repo key={repo.id} repo={repo} />
 			     	})}
