@@ -19,6 +19,7 @@ export default observer(class UserProfile extends React.Component {
 		const { userInfo, repos } = store.mainUser
 		return(
 			<div className="user-profile">
+				<h3 className="gitscout top-screen-logo"><a className="link" href="http://gitscout.herokuapp.com">GIT<b>SCOUT</b></a></h3>
 				<div className="container">
 					<div className="row">
 						<UserCard loaded={store.mainUser.verified == "verified"} userInfo={store.mainUser.userInfo} />

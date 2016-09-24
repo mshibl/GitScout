@@ -4,38 +4,44 @@ export default class Counts extends React.Component {
 	displayCounts(){
 		const {counts} = this.props
 		return(
-		    <div>
-		    	<div className="count-box col-md-12">
-		    	<h4>
-		    		<div className="col-md-6 col-xs-7"><i className="fa  fa-eye" aria-hidden="true"></i> Total Watchers: </div>
-		    		<div className="col-md-6 col-xs-5"><b>{counts.watchersCount}</b></div>
-				</h4> 
-		    	</div>
-		    	<div className="count-box col-md-12">
-		    		<h4>
-			    		<div className="col-md-6 col-xs-7"><i className="fa  fa-star" aria-hidden="true"></i> Total Stars: </div>
-			    		<div className="col-md-6 col-xs-5"><b>{counts.starsCount}</b></div>
-		    		</h4>
-		    	</div>
-		    	<div className="count-box col-md-12">
-		    		<h4>
-			    		<div className="col-md-6 col-xs-7"><i className="fa  fa-code-fork" aria-hidden="true"></i> Total Forks: </div>
-			    		<div className="col-md-6 col-xs-5"><b>{counts.forksCount}</b></div>
-		    		</h4>
-		    	</div>
-		    	<div className="count-box col-md-12">
-		    		<h4>
-			    		<div className="col-md-6 col-xs-7"><i className="fa  fa-exclamation-circle" aria-hidden="true"></i> Open Issues:</div>
-			    		<div className="col-md-6 col-xs-5"><b>{counts.openIssuesCount}</b></div>
-		    		</h4>
-		    	</div>
-		    </div>
+			<table className="table">
+				<tbody>
+					<tr>
+						<td><i className="fa fa-github-square" aria-hidden="true"></i> Public Repos </td>
+						<td><b>{counts.public_repos}</b></td>
+					</tr>
+					<tr>
+						<td><i className="fa  fa-users" aria-hidden="true"></i> Followers </td>
+						<td><b>{counts.followers}</b></td>
+					</tr>
+					<tr>
+						<td><i className="fa  fa-user-plus" aria-hidden="true"></i> Following </td>
+						<td><b>{counts.following}</b></td>
+					</tr>
+					<tr>
+						<td><i className="fa  fa-eye" aria-hidden="true"></i> Total Watchers </td>
+						<td><b>{counts.watchersCount}</b></td>
+					</tr>
+					<tr>
+						<td><i className="fa  fa-star" aria-hidden="true"></i> Total Stars </td>
+						<td><b>{counts.starsCount}</b></td>
+					</tr>
+					<tr>
+						<td><i className="fa  fa-code-fork" aria-hidden="true"></i> Total Forks </td>
+						<td><b>{counts.forksCount}</b></td>
+					</tr>
+					<tr>
+						<td><i className="fa  fa-exclamation-circle" aria-hidden="true"></i> Open Issues </td>
+						<td><b>{counts.openIssuesCount}</b></td>
+					</tr>
+				</tbody>
+			</table>
 		)
 	}
 
 	render(){
 		return(
-		    <div className="counts col-md-7">
+		    <div className="counts col-md-6">
 	     		{this.props.loaded ? 
 	     			this.displayCounts() 
 	     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>

@@ -58,7 +58,16 @@ const analyzeRepos = action(()=>{
 			.then(() => {if(index == repos.length-1){store.mainUser.languages = languagesMap}} )
 	})
 
-	store.mainUser.counts = {starsCount: starsCount, forksCount: forksCount, watchersCount: watchersCount, openIssuesCount: openIssuesCount, loaded: true}
+	store.mainUser.counts = {
+		followers: store.mainUser.userInfo.followers, 
+		following:  store.mainUser.userInfo.following,
+		public_repos: repos.length,
+		starsCount: starsCount, 
+		forksCount: forksCount, 
+		watchersCount: watchersCount, 
+		openIssuesCount: openIssuesCount, 
+		loaded: true
+	}
 })
 
 

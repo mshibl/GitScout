@@ -15,7 +15,7 @@ export default observer(class MainSearch extends React.Component {
 		const {errorMessage} = store
 		return(
 			<div className="input-list">
-				<h1 id="gitscout">GIT<b>SCOUT</b></h1>
+				<h1 className="gitscout">GIT<b>SCOUT</b></h1>
 				<p className="main-guide">Who is the Github user you wish to find?</p>
 				<Search errorMessage={errorMessage} verified={store.mainUser.verified == "verified"} />
 				<Modal className="slideUp" isOpen={store.requestAuth} onRequestClose={()=> this._closeModal()}>

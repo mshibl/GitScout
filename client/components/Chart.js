@@ -33,7 +33,7 @@ export default class Chart extends React.Component {
 		};
 
 		return(
-		    <div className="">
+		    <div>
 				<PieChart width={300} height={250}>
 					<Pie isAnimationActive={true} data={chartData} innerRadius={40} outerRadius={80} cx={150} cy={125} outerRadius={80} fill="#8884d8" labelLine={false} label={renderCustomizedLabel}>
 			        	{chartData.map((entry, index) => <Cell key={entry.name} fill={randomColor({luminosity: 'bright'})} />)}
@@ -46,7 +46,7 @@ export default class Chart extends React.Component {
 
 	render(){
           return(
-          	<div className="chart col-md-5">
+          	<div className="chart col-md-6">
 	     		{this.props.loaded ? 
 	     			this.displayChart() 
 	     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>

@@ -87,7 +87,7 @@ export default class Repos extends React.Component {
 		    <div className="col-md-9">
 		    	<div className="repos">
 		    		
-			     		<div className="col-md-3"><h3 className="repos-title"> Repositories </h3></div>
+			     		<div className="col-md-3"><h3 className="section-title"> Repositories </h3></div>
 			     		<div className="col-md-4 col-md-offset-5 repo-search"><input onChange={this.filterRepos} ref="search" type="text" className="form-control" placeholder="Search for..." /></div>
 		     		
 		     		{this.props.loaded ? 

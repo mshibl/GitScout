@@ -14,11 +14,20 @@ body {
 	margin-bottom: 20px;
 }
 
-#gitscout{
+.gitscout{
 	font-family: 'Raleway', sans-serif;
 	color: #f1c40f;
 	margin-bottom: 50px;
 	font-weight: lighter;
+}
+
+.top-screen-logo{
+	text-align: center;
+	margin: 0px 0px 10px 0px;
+	.link{
+		color: #f1c40f;
+		text-decoration: none; 
+	}
 }
 
 
@@ -201,10 +210,6 @@ body {
 	    background-color: rgba(0, 0, 0, 0);
 	    box-shadow: none;
 	    padding: 10px 20px 20px;
-		
-		.main {
-		    min-height: 160px;
-		}
 	}
 
 
@@ -223,16 +228,35 @@ body {
 	}
 }
 
-.repos {
+.section-title{
+	font-family: Montserrat, 'Open Sans', sans-serif;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	margin-left: 5px;
+}
+
+.stats{
 	@include container-style
 	padding: 10px;
 
-	.repos-title{
-		font-family: Montserrat, 'Open Sans', sans-serif;
-		margin-top: 0px;
-		margin-bottom: 20px;
-		margin-left: 5px;
+	.chart{
+		display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+		display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+		display: -ms-flexbox;      /* TWEENER - IE 10 */
+		display: -webkit-flex;     /* NEW - Chrome */
+		display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	    -webkit-flex-direction: column;
+	    flex-direction: column;
+	    -webkit-justify-content: center;
+	    justify-content: center;
+	    -webkit-align-items: center;
 	}
+
+}
+
+.repos {
+	@include container-style
+	padding: 10px;
 
 	.repo-search{
 		margin-bottom: 10px;
