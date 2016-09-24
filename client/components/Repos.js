@@ -34,36 +34,36 @@ export default class Repos extends React.Component {
 
 	_changePage(e){
 		if(e){e.preventDefault()}
-		let numOfPages = Math.ceil(this.state.displayedRepos.length / 8)
+		let numOfPages = Math.ceil(this.state.displayedRepos.length / 12)
 		const {value} = this.refs.pageNum
 		if(value > numOfPages || value <= 0 || !Number.isInteger(parseInt(value))){
 			alert("not a valid page number")
 		} else {
-			this.setState({ displayCount: (value-1)*8 })
+			this.setState({ displayCount: (value-1)*12 })
 		}
 	}
 
 	_nextPage(){
-		this.refs.pageNum.value  = (this.state.displayCount/8)+2
+		this.refs.pageNum.value  = (this.state.displayCount/12)+2
 		this.changePage()
 	}
 
 	_prevPage(){
-		this.refs.pageNum.value = (this.state.displayCount/8)
+		this.refs.pageNum.value = (this.state.displayCount/12)
 		this.changePage()	
 	}
 
 	displayRepos(){
 		const {displayedRepos} = this.state
 		const {displayCount} = this.state
-		let numOfPages = Math.ceil(displayedRepos.length / 8)
-		let lastPage = displayCount+8 >= displayedRepos.length
-		let firstPage = displayCount < 8
+		let numOfPages = Math.ceil(displayedRepos.length / 12)
+		let lastPage = displayCount+12 >= displayedRepos.length
+		let firstPage = displayCount < 12
 		return(
 			<div>
 		     	
 			    <div className="repos-displayed col-md-12">
-			     	{displayedRepos.slice(displayCount,displayCount+8).map((repo)=>{
+			     	{displayedRepos.slice(displayCount,displayCount+12).map((repo)=>{
 			     		return 	<Repo key={repo.id} repo={repo} />
 			     	})}
 			    </div>
@@ -84,7 +84,7 @@ export default class Repos extends React.Component {
 
 	render(){
 		return(
-		    <div className="col-md-9">
+		    <div className="col-md-12">
 		    	<div className="repos">
 		    		
 			     		<div className="col-md-3"><h3 className="section-title"> Repositories </h3></div>
