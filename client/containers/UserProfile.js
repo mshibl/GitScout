@@ -11,13 +11,10 @@ import Stats from '../components/Stats'
 export default observer(class UserProfile extends React.Component {
 	componentWillMount() {
 		if(this.props.location.query.token){
-			console.log('setting github_token')
-			console.log(this.props.location)
 			sessionStorage.setItem("github_token",this.props.location.query.token)
 		}
 		const {username} = this.props.params
 		if(store.mainUser.verified != "verified"){
-			console.log('verifying username')
 			actions.verfiyUsername(username, true)
 		}
 	}

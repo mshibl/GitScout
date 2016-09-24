@@ -7,7 +7,6 @@ import UserSearch from '../components/UserSearch.js'
 
 export default observer(class MainSearch extends React.Component {
 	render(){
-		console.log('opening main page')
 		return(
 			<div className="input-list">
 				<h1 id="gitscout">GIT<b>SCOUT</b></h1>
