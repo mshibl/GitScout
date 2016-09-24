@@ -11,14 +11,17 @@ export default withRouter(class UserSearch extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		const {value} = this.refs.input
-		if(nextProps.verified) this.props.router.push('/'+value)
+		if(nextProps.verified) this.props.router.push('/user/'+value)
 	}
 
 	_verifyUser(e){
 		e.preventDefault();
 		const {value} = this.refs.input
-		if (value) {
-			let reply = actions.verfiyUsername(value, true)
+
+		if(sessionStorage.getItem('github_token')){
+			if (value){ actions.verfiyUsername(value, true) }
+		} else {
+			actions.authenticate(value)
 		}
 	}
 
@@ -31,7 +34,7 @@ export default withRouter(class UserSearch extends React.Component {
 					type='text'
 					className="searchbox"
 					placeholder="Erlich Bachman"
-					onBlur={this.verifyUser}
+					
 					autoFocus={true}
 				/>
 			</form>

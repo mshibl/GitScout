@@ -2,8 +2,17 @@ import { action, autorun, map } from 'mobx';
 import fetch from 'isomorphic-fetch'
 import store from './store'
 
+const authenticate = action((value)=> {
+	console.log('redirecting to github to authenticate')
+	window.open("https://github.com/login/oauth/authorize?client_id=18b7b3dea60d09eaacc7&state="+value,'_self');
+})
+
 const verfiyUsername = action((username, mainUser = false) => {
-	fetch('https://api.github.com/users/'+username)
+	fetch('https://api.github.com/users/'+username, {
+		headers: {
+			"Authorization": "token "+sessionStorage.getItem("github_token")
+		}
+	})
 		.then(res => res.json())
 		.then(data => {
 			if(data.message == "Not Found"){
@@ -34,7 +43,11 @@ const analyzeRepos = action(()=>{
 		watchersCount += repo.watchers_count;
 		openIssuesCount += repo.open_issues_count;
 
-		fetch('https://api.github.com/repos/'+login+'/'+repo.name+'/languages')
+		fetch('https://api.github.com/repos/'+login+'/'+repo.name+'/languages', {
+			headers: {
+				"Authorization": "token "+sessionStorage.getItem("github_token")
+			}
+		})
 			.then(res => res.json())
 			.then(languages => {
 					for(var language in languages){
@@ -44,7 +57,7 @@ const analyzeRepos = action(()=>{
 			})
 			.then(() => {if(index == repos.length-1){store.mainUser.languages = languagesMap}} )
 	})
-	
+
 	store.mainUser.counts = {starsCount: starsCount, forksCount: forksCount, watchersCount: watchersCount, openIssuesCount: openIssuesCount, loaded: true}
 })
 
@@ -53,7 +66,11 @@ const analyzeRepos = action(()=>{
 const fetchRepos = action((numOfPages, pageNum = 1)=>{
 	const {login} = store.mainUser.userInfo
 	if(login){
-		fetch('https://api.github.com/users/'+login+'/repos?page='+pageNum)
+		fetch('https://api.github.com/users/'+login+'/repos?page='+pageNum, {
+			headers: {
+				"Authorization": "token "+sessionStorage.getItem("github_token")
+			}
+		})
 			.then(res => res.json())
 			.then(repos => {
 				store.mainUser.repos = store.mainUser.repos.concat(repos)
@@ -63,13 +80,13 @@ const fetchRepos = action((numOfPages, pageNum = 1)=>{
 })
 
 
-
 const updateRepos = autorun(() => {
 	let numOfPages = Math.ceil(store.mainUser.userInfo.public_repos/30)
 	fetchRepos(numOfPages)
 })
 
 const actions = {
+	authenticate,
 	verfiyUsername,
 	fetchRepos
 }

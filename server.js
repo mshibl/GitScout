@@ -3,7 +3,8 @@ const express = require('express');
 const webpack = require('webpack');
 const app = express();
 const bodyParser = require('body-parser');
-const fetch = require('isomorphic-fetch')
+const fetch = require('isomorphic-fetch');
+const request = require('request');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const config = isProduction ? require('./webpack.config.prod') : require('./webpack.config.dev');
@@ -21,7 +22,7 @@ if(!isProduction){
 	
 	app.use(require('webpack-hot-middleware')(compiler));
 } else {
-	// ping heroku app every 5 minutes to prevent from going idle
+	// ping heroku every 5 minutes to prevent from going idle
 	setInterval(function() {
 	    fetch("http://gitscout.herokuapp.com");
 	    console.log("aplication pinged to avoid idle state")
@@ -29,6 +30,25 @@ if(!isProduction){
 
 	app.use(express.static(__dirname));
 }
+
+app.get('/auth',function(req,res){
+	var options = { method: 'POST',
+	  url: 'https://github.com/login/oauth/access_token',
+	  qs: 
+	   { client_id: process.env.client_id,
+	     client_secret: process.env.client_secret,
+	     code: req.query.code},
+	  headers: 
+	   {'accept': 'application/json' } 
+	};
+
+	request(options, function (error, response, body) {
+		if (error) throw new Error(error);
+		let bodyJSON = JSON.parse(body);
+		let token = bodyJSON.access_token
+		res.redirect('/user/'+req.query.state+'?token='+token)
+	});
+})
 
 app.get('*', function(req, res) {
   res.sendFile(__dirname + '/index.html')

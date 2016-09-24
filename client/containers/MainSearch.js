@@ -1,5 +1,6 @@
 import React from 'react';
 import {observer} from "mobx-react"
+import actions from '../utils/actions';
 
 import store from '../utils/store';
 import UserSearch from '../components/UserSearch.js'

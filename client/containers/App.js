@@ -9,7 +9,7 @@ export default class App extends React.Component {
 			<div>
 				<Router history={browserHistory}>
 					<Route path="/" component={MainSearch} />
-					<Route path="/:username" component={UserProfile} />
+					<Route path="/user/:username" component={UserProfile} />
 				</Router>
 			</div>
 		)

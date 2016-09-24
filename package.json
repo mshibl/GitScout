@@ -48,11 +48,13 @@
     "react-dom": "^15.3.2",
     "react-router": "^2.8.1",
     "recharts": "^0.14.2",
+    "request": "^2.75.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^2.1.0-beta.25"
   },
   "devDependencies": {
+    "nodemon": "^1.10.2",
     "webpack-dev-middleware": "^1.8.2",
     "webpack-hot-middleware": "^2.12.2"
   }
