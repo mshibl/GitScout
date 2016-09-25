@@ -10,7 +10,7 @@ export default observer(class MainSearch extends React.Component {
 		return(
 			<div className="input-list">
 				<h1 className="gitscout">GIT<b>SCOUT</b></h1>
-				<p className="main-guide">Who is the Github user you wish to find?</p>
+				<p className="main-guide">Type a Github username</p>
 				<Search errorMessage={store.errorMessage} />
 			</div>
 		)
