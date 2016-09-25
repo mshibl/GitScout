@@ -4,20 +4,15 @@ import {PieChart, Pie, Tooltip, Cell} from 'recharts';
 
 
 export default class Chart extends React.Component {
-	componentWillReceiveProps(nextProps) {
-	 	const {chartData} = nextProps
-	 	if(chartData.length){
-	 		this.setState({
-	 			chartData: chartData.map(function(arr){ 
-							 				return {value: arr[1], name: arr[0], color: randomColor({luminosity: 'bright'})} 
-							 			})
-	 		})
-
-	 	}     
+	buildChartData(){
+		let data = this.props.chartData.map(function(arr){ 
+					 				return {value: arr[1], name: arr[0], color: randomColor({luminosity: 'bright'})} 
+							 	})
+		return data || []
 	}
 
 	displayChart(){
-		const {chartData} = this.state
+		const chartData = this.buildChartData()
 		const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value }) => {
 			const radius = innerRadius + (outerRadius - innerRadius) * 1.4;
 			const RADIAN = Math.PI / 180; 
