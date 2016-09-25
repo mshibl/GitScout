@@ -50,7 +50,8 @@ app.get('/github_api',function(req,res){
 })
 
 app.get('*', function(req, res) {
-  res.sendFile(__dirname + '/index.html')
+	// console.log(path.join(__dirname + '/../index.html'))
+  res.sendFile(path.join(__dirname + '/../client/index.html'))
 })
 
 app.listen(port, (err) => {
