@@ -7,6 +7,7 @@ const isProduction = window.location.hostname != "localhost"
 const apiUrl = "http://" + (isProduction? window.location.hostname : 'localhost:3000') + '/github_api'
 
 const loadUserProfile = action((username)=>{
+	store.reset()
 	verfiyUsername(username)
 		.then(userData => {
 			if(userData.message == "Not Found"){
@@ -89,10 +90,15 @@ const analyzeRepos = action(()=>{
 	}
 })
 
+const resetStore = action(() => {
+
+})
+
 const actions = {
 	loadUserProfile,
 	verfiyUsername,
-	fetchRepos
+	fetchRepos,
+	resetStore
 }
 
 export default actions

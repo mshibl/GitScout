@@ -20,8 +20,7 @@ export default withRouter(class Search extends React.Component {
 
 	_handleSubmit(e){
 		e.preventDefault();
-		
-		store.errorMessage = ""
+	
 		let username = this.refs.input.value
 		actions.loadUserProfile(username)
 	}

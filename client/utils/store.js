@@ -1,20 +1,24 @@
-import {observable, computed, asStructure, map} from 'mobx';
+import {map, extendObservable, action} from 'mobx';
 
 class AppStore {
-	@observable requestAuth = false
-	@observable requestedUsername = ""
-	@observable errorMessage = ""
+  constructor() {
+    this.reset();
+  }
 
-	@observable users = map()
-	@observable mainUser = {
-		username: "",
-		loaded: false,
-		userInfo: {},
-		repos: [],
-		languages: map(),
-		analysisLoaded: false,
-		counts: {}
-	}
+  @action reset() {
+    extendObservable(this, {
+	    errorMessage: "",
+		mainUser: {
+			username: "",
+			loaded: false,
+			userInfo: {},
+			repos: [],
+			languages: map(),
+			analysisLoaded: false,
+			counts: {}
+		}
+    });
+  }
 }
 
 const singleton = new AppStore();
