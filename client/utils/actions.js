@@ -6,7 +6,6 @@ import { browserHistory } from 'react-router'
 const isProduction = window.location.hostname != "localhost"
 const apiUrl = "http://" + (isProduction? window.location.hostname : 'localhost:3000') + '/github_api'
 
-
 const loadUserProfile = action((username)=>{
 	verfiyUsername(username)
 		.then(userData => {
@@ -14,8 +13,8 @@ const loadUserProfile = action((username)=>{
 				store.errorMessage = "No Such User on Github!"
 			} else {
 				store.mainUser.username = username
-				store.mainUser.userInfo = userData
 				store.mainUser.loaded = true
+				store.mainUser.userInfo = userData
 				browserHistory.push('/user/'+username)
 			}
 		})
@@ -28,15 +27,21 @@ const verfiyUsername = (username) => {
 	)
 }
 
+
 const fetchRepos = action((numOfPages, pageNum = 1)=>{
-	let username = store.mainUser.userInfo.login
-	if(username){
-		fetch(apiUrl+'?endpoint=/users/'+username+'/repos?page='+pageNum)
-			.then(res => res.json())
-			.then(repos => {
-				store.mainUser.repos = store.mainUser.repos.concat(repos)
-				pageNum < numOfPages ? fetchRepos(numOfPages, pageNum + 1) : analyzeRepos()
-			})
+	if(store.mainUser.loaded){
+		if(numOfPages == 0){
+			store.mainUser.repos.push("user has no repos")
+			store.mainUser.counts.loaded = true
+		} else {
+			let username = store.mainUser.userInfo.login
+			fetch(apiUrl+'?endpoint=/users/'+username+'/repos?page='+pageNum)
+				.then(res => res.json())
+				.then(repos => {
+					store.mainUser.repos = store.mainUser.repos.concat(repos)
+					pageNum < numOfPages ? fetchRepos(numOfPages, pageNum + 1) : analyzeRepos()
+				})
+		}
 	}
 })
 
@@ -45,7 +50,6 @@ const updateRepos = autorun(() => {
 	let numOfPages = Math.ceil(store.mainUser.userInfo.public_repos/30)
 	fetchRepos(numOfPages)
 })
-
 
 const analyzeRepos = action(()=>{
 	const {login} = store.mainUser.userInfo
@@ -67,7 +71,10 @@ const analyzeRepos = action(()=>{
 						languagesMap.set(language, languages[language] + value)
 					}
 			})
-			.then(() => {if(index == repos.length-1){store.mainUser.languages = languagesMap}} )
+			.then(() => {if(index == repos.length-1){
+				store.mainUser.languages = languagesMap
+				store.mainUser.analysisLoaded = true
+			}})
 	})
 
 	store.mainUser.counts = {

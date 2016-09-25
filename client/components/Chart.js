@@ -18,7 +18,6 @@ export default class Chart extends React.Component {
 
 	displayChart(){
 		const {chartData} = this.state
-		
 		const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value }) => {
 			const radius = innerRadius + (outerRadius - innerRadius) * 1.4;
 			const RADIAN = Math.PI / 180; 
@@ -45,6 +44,7 @@ export default class Chart extends React.Component {
 	}
 
 	render(){
+		
           return(
           	<div className="chart col-md-6">
 	     		{this.props.loaded ? 

@@ -55,40 +55,42 @@ export default class Repos extends React.Component {
 
 	displayRepos(){
 		const {displayedRepos} = this.state
-		const {displayCount} = this.state
-		let numOfPages = Math.ceil(displayedRepos.length / 12)
-		let lastPage = displayCount+12 >= displayedRepos.length
-		let firstPage = displayCount < 12
-		return(
-			<div>
-		     	
-			    <div className="repos-displayed col-md-12">
-			     	{displayedRepos.slice(displayCount,displayCount+12).map((repo)=>{
-			     		return 	<Repo key={repo.id} repo={repo} />
-			     	})}
-			    </div>
-		     	<hr />
-		     	<div className="change-page-control"> 
-		     		{!firstPage ? <a><i className="fa fa-chevron-left" onClick={this.prevPage}></i></a> : <i className="fa fa-chevron-left idle"></i>}
-		     		<div className="page-picker">
-			     		<form className="page-number" onSubmit={this.changePage}>
-			     			<input ref="pageNum" type="text" className="form-control" defaultValue={1} maxLength="1"/>
-			     		</form>
-			     		<span className="of">of</span> {numOfPages}
-		     		</div>
-		     		{!lastPage ? <a><i className="fa fa-chevron-right" onClick={this.nextPage}></i></a> : <i className="fa fa-chevron-right idle"></i>}
+		if (displayedRepos[0] === "user has no repos"){
+			return( <div className="no-repos col-md-12"><i className="fa fa-exclamation-circle" aria-hidden="true"></i>  {this.props.username} has no public Repositories</div> )
+		} else {
+			const {displayCount} = this.state
+			let numOfPages = Math.ceil(displayedRepos.length / 12)
+			let lastPage = displayCount+12 >= displayedRepos.length
+			let firstPage = displayCount < 12
+			return(
+				<div>
+				    <div className="repos-displayed col-md-12">
+				     	{displayedRepos.slice(displayCount,displayCount+12).map((repo)=>{
+				     		return 	<Repo key={repo.id} repo={repo} />
+				     	})}
+				    </div>
+			     	<hr />
+			     	<div className="change-page-control"> 
+			     		{!firstPage ? <a><i className="fa fa-chevron-left" onClick={this.prevPage}></i></a> : <i className="fa fa-chevron-left idle"></i>}
+			     		<div className="page-picker">
+				     		<form className="page-number" onSubmit={this.changePage}>
+				     			<input ref="pageNum" type="text" className="form-control" defaultValue={1} maxLength="1"/>
+				     		</form>
+				     		<span className="of">of</span> {numOfPages}
+			     		</div>
+			     		{!lastPage ? <a><i className="fa fa-chevron-right" onClick={this.nextPage}></i></a> : <i className="fa fa-chevron-right idle"></i>}
+			     	</div>
 		     	</div>
-	     	</div>
-		)
+			)
+		}
 	}
 
 	render(){
 		return(
 		    <div className="col-md-12">
-		    	<div className="repos">
-		    		
-			     		<div className="col-md-3"><h3 className="section-title"> Repositories </h3></div>
-			     		<div className="col-md-4 col-md-offset-5 repo-search"><input onChange={this.filterRepos} ref="search" type="text" className="form-control" placeholder="Search for..." /></div>
+		    	<div className="repos">	
+		     		<div className="col-md-3"><h3 className="section-title"> Repositories </h3></div>
+		     		<div className="col-md-4 col-md-offset-5 repo-search"><input onChange={this.filterRepos} ref="search" type="text" className="form-control" placeholder="Search for..." /></div>
 		     		
 		     		{this.props.loaded ? 
 		     			this.displayRepos() 

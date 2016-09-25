@@ -35,6 +35,11 @@ body {
 	opacity: 0.6;
 }
 
+.git-icon{
+	padding: 10px;
+	/*color: #2ecc71;*/
+}
+
 .input-list{
 	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
 	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
@@ -72,10 +77,7 @@ body {
 	    }
 	}
 
-	.git-icon{
-		padding: 10px;
-		/*color: #2ecc71;*/
-	}
+
 
 	.main-guide{
 		font-family: Montserrat;
@@ -221,6 +223,12 @@ body {
 	@include container-style
 	padding: 10px;
 
+	.no-repos{
+	    text-align: center;
+	    font-size: 20px;
+	    color: red;
+	}
+
 	.repo-search{
 		margin-bottom: 10px;
 	}
@@ -321,8 +329,7 @@ body {
 	}
 }
 
-
-/*.ReactModalPortal{
+.ReactModalPortal{
 	.ReactModal__Overlay{
 		display: -webkit-box;  
 		display: -moz-box;     
@@ -353,4 +360,11 @@ body {
 	    background-color: #f5f5f5;
 	    .sub-text{ font-weight: 100; }
 	}
-}*/
+
+	.modal-input{
+		.searchbox{
+			color: black;
+			font-size: 18px;
+		}
+	}
+}
