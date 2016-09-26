@@ -12,7 +12,7 @@ export default class Stats extends React.Component {
 			    	<h3 className="section-title"> User Statistics  </h3>
 			    	<Counts loaded={counts.loaded} counts={counts} / >
 			    	<Chart loaded={analysisLoaded} chartData={languages} />
-			    	<SearchCount searchCount={searchCount} wait={5000}/>
+			    	<SearchCount searchCount={searchCount} wait={3000}/>
 		    	</div>
 		    </div>
 		)
