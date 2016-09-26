@@ -1,5 +1,6 @@
 import React from 'react';
 import Repo from './Repo'
+import Loader from './Loader'
 
 export default class Repos extends React.Component {
 	constructor(props) {
@@ -94,7 +95,7 @@ export default class Repos extends React.Component {
 		     		
 		     		{this.props.loaded ? 
 		     			this.displayRepos() 
-		     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>
+		     			: <Loader />
 		     		}
 	     		</div>
 		    </div>

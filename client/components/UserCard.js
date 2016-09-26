@@ -1,5 +1,6 @@
 import React from 'react';
 import store from '../utils/store';
+import Loader from './Loader'
 
 export default class UserCard extends React.Component {
 
@@ -31,7 +32,7 @@ export default class UserCard extends React.Component {
 			<h3 className="gitscout top-screen-logo"><a className="link" href="http://gitscout.herokuapp.com">GIT<b>SCOUT</b></a></h3>
 		 		{this.props.loaded ? 
 		 			this.displayUserCard() 
-		 			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>
+		 			: <Loader />
 		 		}
 			</div>
 		)

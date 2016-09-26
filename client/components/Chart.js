@@ -1,6 +1,7 @@
 import React from 'react';
 import randomColor from 'randomcolor';
 import {PieChart, Pie, Tooltip, Cell} from 'recharts';
+import Loader from './Loader'
 
 
 export default class Chart extends React.Component {
@@ -44,7 +45,7 @@ export default class Chart extends React.Component {
           	<div className="chart col-md-6">
 	     		{this.props.loaded ? 
 	     			this.displayChart() 
-	     			: <div className="loading"><i className="fa fa-cog fa-spin fa-3x fa-fw"></i><span className="sr-only">Loading...</span></div>
+	     			: <Loader />
 	     		}
           	</div>
           )
