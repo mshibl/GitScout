@@ -11,6 +11,8 @@ const config = isProduction ? require('./webpack.config.prod') : require('./webp
 const compiler = webpack(config);
 const port = isProduction ? process.env.PORT : 3000;
 
+const db = require('./db');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -31,6 +33,8 @@ if(!isProduction){
 	app.use(express.static(__dirname));
 }
 
+
+// ROUTES
 app.get('/github_api',function(req,res){
 	var options = { method: 'GET',
 		url: 'https://api.github.com'+req.query.endpoint,
@@ -45,14 +49,28 @@ app.get('/github_api',function(req,res){
 
 	request(options, function (error, response, body) {
 		if (error) throw new Error(error);
-		res.json(JSON.parse(body))
+		var json = JSON.parse(body)
+
+		if (json.login || json.message) { 
+			// If incoming request was a verification request, log it to the db and send search count
+			var username = json.login || req.query.endpoint.split("/")[2]
+			db.createQuery(username, true) 
+			db.getRecentQueries(username)
+				.then(function(searchCount){
+					json.searchCount = searchCount
+					res.json(json)
+				})
+		} else {
+			res.json(json)
+		}
+
+
 	});
-})
+});
 
 app.get('*', function(req, res) {
-	// console.log(path.join(__dirname + '/../index.html'))
   res.sendFile(path.join(__dirname + '/../client/index.html'))
-})
+});
 
 app.listen(port, (err) => {
   if (err) {

@@ -21,13 +21,13 @@ export default observer(class UserProfile extends React.Component {
 	}
 
 	render(){
-		const { username, userInfo, repos, analysisLoaded, languages, counts } = store.mainUser
+		const { username, userInfo, repos, analysisLoaded, languages, counts, searchCount } = store.mainUser
 		return(
 			<div className="user-profile">
 				<div className="container">
 					<div className="row">
 						<UserCard loaded={username} userInfo={userInfo} />
-						<Stats counts={counts} analysisLoaded={analysisLoaded} languages={languages.entries()} />
+						<Stats counts={counts} searchCount={userInfo.searchCount} analysisLoaded={analysisLoaded} languages={languages.entries()} />
 						<Repos loaded={repos.length > 0 } username={userInfo.username || store.mainUser.userInfo.login} repos={store.mainUser.repos} />
 					</div>
 					<Modal className="slideUp" isOpen={!store.mainUser.loaded} onRequestClose={()=> this._closeModal()}>		
